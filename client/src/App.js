@@ -1,9 +1,43 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./components/Home";
+import Signup from "./components/Signup";
+import { AuthContextProvider } from "./context/auth";
+import Login from "./components/Login";
+import ProtectedHome from "./components/ProtectedHome";
+import ProtectedSignup from "./components/ProtectedSignup";
 
 function App() {
   return (
     <div>
-      <p>Hello World</p>
+      <AuthContextProvider>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedHome>
+                <Home />
+              </ProtectedHome>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <ProtectedSignup>
+                <Signup />
+              </ProtectedSignup>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <ProtectedSignup>
+                <Login />
+              </ProtectedSignup>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
     </div>
   );
 }
