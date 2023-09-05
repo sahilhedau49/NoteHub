@@ -26,8 +26,8 @@ const Signup = () => {
   return (
     <>
       <div>
-        <p className="absolute top-8 italic left-20 font-extrabold text-[8rem]">
-          ImgAL
+        <p className="absolute top-24 italic -left-10 font-extrabold text-[6rem] -rotate-45">
+          NoteHub
         </p>
       </div>
       <form>
@@ -35,7 +35,7 @@ const Signup = () => {
           <div className="hero-content flex-col ">
             <div className="text-center ">
               <h1 className="text-5xl font-bold">Sign Up</h1>
-              <p className="py-6">Share your photos with the world 💫🌈</p>
+              <p className="py-6">Share your notes with the world 📖💫🌈</p>
             </div>
             <div className="card w-[30rem] shadow-2xl bg-base-100">
               <div className="card-body">

@@ -1,14 +1,14 @@
 import React from "react";
 import UploadForm from "./UploadForm";
 import Navbar from "./Navbar";
-import ImageGallery from "./ImageGallery";
+import Gallery from "./Gallery";
 
 const Home = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <Navbar />
       <UploadForm />
-      <ImageGallery />
+      <Gallery />
     </div>
   );
 };
