@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import useStorage from "../Hooks/useStorage";
+import Zoom from "react-reveal/Zoom";
+import { FiAlertCircle } from "react-icons/fi";
 
 const UploadForm = () => {
   const [selectedFile, setSelectedFile] = useState();
-  const { startUpload } = useStorage();
+  const { startUpload, progress, url } = useStorage();
+  const [error, setError] = useState("");
+
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
@@ -11,8 +15,13 @@ const UploadForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    startUpload(selectedFile);
-    // console.log(selectedFile);
+    let t = selectedFile.type.split("/")[1];
+    if (t === "pdf" || t === "png") {
+      setError("");
+      startUpload(selectedFile);
+    } else {
+      setError("File should be only of type pdf or png.");
+    }
   };
 
   return (
@@ -24,9 +33,30 @@ const UploadForm = () => {
           className="file-input file-input-bordered w-full max-w-xs"
         />
         <br />
-        <button type="submit" className="btn w-24 mt-3">
-          Upload
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className={`btn w-24 mt-3 ${Boolean(progress) && "loading"}`}
+            disabled={!selectedFile}
+          >
+            Upload
+          </button>
+          {url && (
+            <Zoom left>
+              <div>
+                <div className="mx-auto my-5 px-3  text-2xl text-center text-slate-200 ">
+                  ✅
+                </div>
+              </div>
+            </Zoom>
+          )}
+        </div>
+        {error && (
+          <div className="alert alert-error max-w-fit px-4 mx-auto py-2 mt-2">
+            <FiAlertCircle />
+            <span>{error}</span>
+          </div>
+        )}
       </form>
     </div>
   );

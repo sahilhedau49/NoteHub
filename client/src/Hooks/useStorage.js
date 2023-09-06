@@ -5,6 +5,7 @@ import { useState } from "react";
 const useStorage = () => {
   const [progress, setProgress] = useState();
   const [url, setUrl] = useState("");
+  const [err, setErr] = useState("");
 
   const startUpload = (file) => {
     if (!file) {
@@ -22,11 +23,13 @@ const useStorage = () => {
       },
       (error) => {
         console.log(error);
+        setErr(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           setUrl(downloadURL);
+          setProgress(0);
         });
       }
     );
@@ -36,6 +39,7 @@ const useStorage = () => {
     startUpload,
     progress,
     url,
+    err,
   };
 };
 

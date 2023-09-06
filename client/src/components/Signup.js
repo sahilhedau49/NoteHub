@@ -26,7 +26,7 @@ const Signup = () => {
   return (
     <>
       <div>
-        <p className="absolute top-24 italic -left-10 font-extrabold text-[6rem] -rotate-45">
+        <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] ">
           NoteHub
         </p>
       </div>
@@ -67,7 +67,10 @@ const Signup = () => {
                   <button onClick={handleSubmit} className="btn btn-primary">
                     Sign Up
                   </button>
-                  <Link className="underline text-xs text-center" to="/login">
+                  <Link
+                    className="underline mt-2 text-xs text-center"
+                    to="/login"
+                  >
                     Already have an account? Log in
                   </Link>
                 </div>

@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="shadow-lg rounded-b-lg px-4 shadow-slate-800 drop-shadow-xl/10000 justify-between navbar bg-base-100">
+      <div className="border-b-2 border-black px-8 py-4 justify-between navbar bg-base-100">
         <Link className="font-bold normal-case text-xl">NoteHub</Link>
         <button onClick={handleSignOut} className="btn">
           Sign Out
