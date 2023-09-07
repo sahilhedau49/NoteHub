@@ -11,17 +11,21 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [err, setErr] = useState("");
+  const [errWhileSign, setErrWhileSign] = useState("");
+  const [errWhileLog, setErrWhileLog] = useState("");
 
   const emailSignIn = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password).catch((error) => {
       console.log(error);
-      setErr(error);
+      setErrWhileSign(error);
     });
   };
 
   const emailLogIn = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error);
+      setErrWhileLog(error);
+    });
   };
 
   const SignOut = () => {
@@ -40,7 +44,14 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ emailSignIn, emailLogIn, SignOut, user, err }}
+      value={{
+        emailSignIn,
+        emailLogIn,
+        SignOut,
+        user,
+        errWhileSign,
+        errWhileLog,
+      }}
     >
       {children}
     </AuthContext.Provider>

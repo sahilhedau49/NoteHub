@@ -19,12 +19,15 @@ const UploadForm = () => {
     if (
       t === "pdf" ||
       t === "png" ||
-      t === "vnd.openxmlformats-officedocument.wordprocessingml.document"
+      t === "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      t === "msword" ||
+      t === "vnd.ms-powerpoint" ||
+      t === "vnd.openxmlformats-officedocument.presentationml.presentation"
     ) {
       setError("");
       startUpload(selectedFile);
     } else {
-      setError("File should be only of type pdf or png.");
+      setError("Supported file types are pdf, png, docx, doc, pptx and ppt.");
     }
   };
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { UserAuth } from "../context/auth";
 import { Link } from "react-router-dom";
-import Error from "./Error";
+import ErrorSign from "./ErrorSign";
 
 const Signup = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const { emailSignIn, err } = UserAuth();
+  const { emailSignIn, errWhileSign } = UserAuth();
 
   const getData = (e) => {
     const { name, value } = e.target;
@@ -80,7 +80,7 @@ const Signup = () => {
           </div>
         </div>
       </form>
-      {err && <Error />}
+      {errWhileSign && <ErrorSign />}
     </>
   );
 };

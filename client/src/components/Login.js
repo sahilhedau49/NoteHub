@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { UserAuth } from "../context/auth";
 import { Link } from "react-router-dom";
+import ErrorLog from "./ErrorLog";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const { emailLogIn } = UserAuth();
+  const { emailLogIn, errWhileLog } = UserAuth();
 
   const getData = (e) => {
     const { name, value } = e.target;
@@ -71,6 +72,7 @@ const Login = () => {
           </div>
         </div>
       </form>
+      {errWhileLog && <ErrorLog />}
     </>
   );
 };
