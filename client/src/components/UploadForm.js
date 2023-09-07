@@ -16,7 +16,11 @@ const UploadForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let t = selectedFile.type.split("/")[1];
-    if (t === "pdf" || t === "png") {
+    if (
+      t === "pdf" ||
+      t === "png" ||
+      t === "vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
       setError("");
       startUpload(selectedFile);
     } else {

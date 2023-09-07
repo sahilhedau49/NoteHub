@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { UserAuth } from "../context/auth";
 import { Link } from "react-router-dom";
+import Error from "./Error";
 
 const Signup = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const { emailSignIn } = UserAuth();
+  const { emailSignIn, err } = UserAuth();
 
   const getData = (e) => {
     const { name, value } = e.target;
@@ -79,6 +80,7 @@ const Signup = () => {
           </div>
         </div>
       </form>
+      {err && <Error />}
     </>
   );
 };

@@ -11,9 +11,13 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [err, setErr] = useState("");
 
   const emailSignIn = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error);
+      setErr(error);
+    });
   };
 
   const emailLogIn = (email, password) => {
@@ -35,7 +39,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ emailSignIn, emailLogIn, SignOut, user }}>
+    <AuthContext.Provider
+      value={{ emailSignIn, emailLogIn, SignOut, user, err }}
+    >
       {children}
     </AuthContext.Provider>
   );
