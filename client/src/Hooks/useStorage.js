@@ -1,11 +1,13 @@
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../Firebase";
+import { db, storage } from "../Firebase";
 import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { UserAuth } from "../context/auth";
 
 const useStorage = () => {
   const [progress, setProgress] = useState();
-  const [url, setUrl] = useState("");
   const [err, setErr] = useState("");
+  const { user } = UserAuth();
 
   const startUpload = (file) => {
     if (!file) {
@@ -13,7 +15,6 @@ const useStorage = () => {
     }
     const storageRef = ref(storage, "documents/" + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    // console.log(uploadTask);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -25,12 +26,19 @@ const useStorage = () => {
         console.log(error);
         setErr(error);
       },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          setUrl(downloadURL);
-          setProgress(0);
-        });
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        setProgress(0);
+        try {
+          const docRef = await addDoc(collection(db, "documents"), {
+            docUrl: url,
+            createdAt: new Date(),
+            ownerEmail: user.email,
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
       }
     );
   };
@@ -38,7 +46,6 @@ const useStorage = () => {
   return {
     startUpload,
     progress,
-    url,
     err,
   };
 };
