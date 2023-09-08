@@ -1,5 +1,6 @@
 import React from "react";
 import useFirestore from "../Hooks/useFirestore";
+import Card from "./Card";
 
 const Gallery = () => {
   const { res, isLoading } = useFirestore();
@@ -10,20 +11,17 @@ const Gallery = () => {
       <div className="mt-6 text-center">
         {isLoading && <progress className="progress w-56"></progress>}
       </div>
-      <div className="grid md:grid-cols-3 justify-center gap-4 mt-10">
-        <div className="card card-compact w-96 bg-base-100 shadow-xl">
-          <figure>
-            <img
-              className="w-20"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/833px-PDF_file_icon.svg.png"
-              alt="PDF Img"
+      <div className="coin-main grid grid-cols-2 gap-x-12 lg:grid-cols-2 sm:grid-cols-1 gap-y-24 md:gap-y-8 p-20 lg:p-8 sm:p-8 ">
+        {res.map((doc) => {
+          return (
+            <Card
+              key={doc.url}
+              url={doc.url}
+              createdAt={doc.createdAt}
+              email={doc.gmail}
             />
-          </figure>
-          <div className="card-body">
-            <p>Uploaded By: </p>
-            <p>Created On: </p>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </>
   );

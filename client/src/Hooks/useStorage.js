@@ -8,6 +8,7 @@ const useStorage = () => {
   const [progress, setProgress] = useState();
   const [err, setErr] = useState("");
   const { user } = UserAuth();
+  const [added, setAdded] = useState(false);
 
   const startUpload = (file) => {
     if (!file) {
@@ -30,12 +31,12 @@ const useStorage = () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
         setProgress(0);
         try {
-          const docRef = await addDoc(collection(db, "documents"), {
+          await addDoc(collection(db, "documents"), {
             docUrl: url,
             createdAt: new Date(),
             ownerEmail: user.email,
           });
-          console.log("Document written with ID: ", docRef.id);
+          setAdded(true);
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -47,6 +48,7 @@ const useStorage = () => {
     startUpload,
     progress,
     err,
+    added,
   };
 };
 

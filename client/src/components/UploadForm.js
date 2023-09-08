@@ -5,7 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 const UploadForm = () => {
   const [selectedFile, setSelectedFile] = useState();
-  const { startUpload, progress, url } = useStorage();
+  const { startUpload, progress, added } = useStorage();
   const [error, setError] = useState("");
 
   const handleFileChange = (e) => {
@@ -48,7 +48,7 @@ const UploadForm = () => {
           >
             Upload
           </button>
-          {url && (
+          {added && (
             <Zoom left>
               <div>
                 <div className="mx-auto my-5 px-3  text-2xl text-center text-slate-200 ">
