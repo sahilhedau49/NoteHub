@@ -13,7 +13,7 @@ const Card = ({ url, desc, name, createdAt, email }) => {
       setImgUrl(pdf);
     } else if (type === "doc" || type === "docx") {
       setImgUrl(doc);
-    } else if (type === "png") {
+    } else if (type === "png" || type === "jpeg") {
       setImgUrl(png);
     } else {
       setImgUrl(ppt);
@@ -22,16 +22,16 @@ const Card = ({ url, desc, name, createdAt, email }) => {
 
   return (
     <a href={url} target="_blank" rel="noreferrer">
-      <div className="card card-compact w-96 bg-base-100 shadow-xl">
-        <p className="mt-4 mb-4 text-lg text-center font-bold">{name}</p>
+      <div className="card card-compact w-[100%] bg-base-100 shadow-xl sm:w-[100%]">
+        <p className="mt-4 px-4 mb-4 text-lg text-center font-bold">{name}</p>
         <figure>
           <img className="w-28 rounded-full" src={imgUrl} alt="Doc-Type" />
         </figure>
         <div className="card-body">
-          <p>
+          <p className="text-base">
             <span className="font-semibold">Uploaded By:</span> {email}
           </p>
-          <p>
+          <p className="text-base">
             <span className="font-semibold">Created On:</span>{" "}
             {createdAt.toLocaleDateString()}
           </p>

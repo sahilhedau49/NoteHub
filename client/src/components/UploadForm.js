@@ -19,6 +19,7 @@ const UploadForm = () => {
     if (
       t === "pdf" ||
       t === "png" ||
+      t === "jpeg" ||
       t === "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
       t === "msword" ||
       t === "vnd.ms-powerpoint" ||

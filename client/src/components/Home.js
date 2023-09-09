@@ -2,6 +2,7 @@ import React from "react";
 import UploadForm from "./UploadForm";
 import Navbar from "./Navbar";
 import Gallery from "./Gallery";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Navbar />
       <UploadForm />
       <Gallery />
+      <Footer />
     </div>
   );
 };
