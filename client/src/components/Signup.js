@@ -54,10 +54,10 @@ const Signup = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Password</span>
+                    <span className="label-text">Create Password</span>
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     onChange={getData}
                     placeholder="password"

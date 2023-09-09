@@ -32,7 +32,7 @@ const UploadForm = () => {
   };
 
   return (
-    <div className="text-center mt-20">
+    <div className="text-center mt-12">
       <form onSubmit={handleSubmit} className="mx-auto text-center">
         <input
           onChange={handleFileChange}

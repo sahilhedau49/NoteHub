@@ -16,9 +16,10 @@ const useFirestore = () => {
         const d = [];
         querySnapshot.forEach((doc) => {
           const url = doc.data().docUrl;
+          const name = doc.data().name;
           const createdAt = doc.data().createdAt.toDate();
           const gmail = doc.data().ownerEmail;
-          d.push({ url, createdAt, gmail });
+          d.push({ url, name, createdAt, gmail });
         });
         setRes(d);
         setIsloading(false);

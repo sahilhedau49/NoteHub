@@ -5,7 +5,7 @@ import Gallery from "./Gallery";
 
 const Home = () => {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="bg-zinc-200 mx-auto min-h-screen">
       <Navbar />
       <UploadForm />
       <Gallery />

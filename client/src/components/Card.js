@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import pdf from "../images/pdf.png";
+import png from "../images/jpg.jpeg";
+import doc from "../images/doc.jpeg";
+import ppt from "../images/ppt.jpeg";
 
-const Card = ({ url, createdAt, email }) => {
+const Card = ({ url, desc, name, createdAt, email }) => {
+  const type = name.split(".")[1];
+  const [imgUrl, setImgUrl] = useState();
+
+  useEffect(() => {
+    if (type === "pdf") {
+      setImgUrl(pdf);
+    } else if (type === "doc" || type === "docx") {
+      setImgUrl(doc);
+    } else if (type === "png") {
+      setImgUrl(png);
+    } else {
+      setImgUrl(ppt);
+    }
+  }, [type]);
+
   return (
     <a href={url} target="_blank" rel="noreferrer">
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
+        <p className="mt-4 mb-4 text-lg text-center font-bold">{name}</p>
         <figure>
-          <img
-            className="w-20"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/833px-PDF_file_icon.svg.png"
-            alt="PDF Img"
-          />
+          <img className="w-28 rounded-full" src={imgUrl} alt="Doc-Type" />
         </figure>
         <div className="card-body">
           <p>

@@ -52,7 +52,7 @@ const Login = () => {
                     <span className="label-text">Password</span>
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     onChange={getData}
                     placeholder="password"
@@ -63,7 +63,10 @@ const Login = () => {
                   <button onClick={handleSubmit} className="btn btn-primary">
                     Log In
                   </button>
-                  <Link className="underline text-xs text-center" to="/signup">
+                  <Link
+                    className="underline mt-2 text-xs text-center"
+                    to="/signup"
+                  >
                     Don't have an account? Sign up
                   </Link>
                 </div>

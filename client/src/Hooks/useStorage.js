@@ -1,4 +1,9 @@
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  getMetadata,
+} from "firebase/storage";
 import { db, storage } from "../Firebase";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
@@ -29,9 +34,11 @@ const useStorage = () => {
       },
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
+        const metaData = await getMetadata(storageRef);
         setProgress(0);
         try {
           await addDoc(collection(db, "documents"), {
+            name: metaData.name,
             docUrl: url,
             createdAt: new Date(),
             ownerEmail: user.email,
