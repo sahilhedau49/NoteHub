@@ -5,7 +5,7 @@ import ErrorSign from "./ErrorSign";
 
 const Signup = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const { emailSignIn, errWhileSign } = UserAuth();
+  const { emailSignIn, errWhileSign, isValidate } = UserAuth();
 
   const getData = (e) => {
     const { name, value } = e.target;
@@ -27,7 +27,7 @@ const Signup = () => {
   return (
     <>
       <div>
-        <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] sm:text-6xl sm:top-20">
+        <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] sm:text-6xl sm:top-10">
           NoteHub
         </p>
       </div>
@@ -80,6 +80,9 @@ const Signup = () => {
           </div>
         </div>
       </form>
+      {isValidate && (
+        <p>Your email is verified successfully. Please Log in now.</p>
+      )}
       {errWhileSign && <ErrorSign />}
     </>
   );

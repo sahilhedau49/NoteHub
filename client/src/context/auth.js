@@ -3,6 +3,7 @@ import {
   signOut,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
 } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../Firebase";
@@ -11,14 +12,21 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [isValidate, setIsValidate] = useState(false);
   const [errWhileSign, setErrWhileSign] = useState("");
   const [errWhileLog, setErrWhileLog] = useState("");
 
   const emailSignIn = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
-      console.log(error);
-      setErrWhileSign(error);
-    });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        sendEmailVerification(auth.currentUser).then(() => {
+          alert("Verificatrion Link Sent!!!");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrWhileSign(error);
+      });
   };
 
   const emailLogIn = (email, password) => {
@@ -33,13 +41,13 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        setIsValidate(currentUser.emailVerified);
+      }
       console.log(currentUser);
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   return (
@@ -51,6 +59,7 @@ export const AuthContextProvider = ({ children }) => {
         user,
         errWhileSign,
         errWhileLog,
+        isValidate,
       }}
     >
       {children}

@@ -3,8 +3,8 @@ import { UserAuth } from "../context/auth";
 import { Navigate } from "react-router-dom";
 
 const ProtectedSignup = ({ children }) => {
-  const { user } = UserAuth();
-  if (user) {
+  const { user, isValidate } = UserAuth();
+  if (user && isValidate) {
     return <Navigate to="/" />;
   }
 
