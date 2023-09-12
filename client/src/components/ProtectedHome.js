@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 const ProtectedHome = ({ children }) => {
   const { user } = UserAuth();
   if (!user) {
-    return <Navigate to="/signup" />;
+    return <Navigate to="/login" />;
   }
   return children;
 };

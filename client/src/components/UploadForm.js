@@ -26,7 +26,7 @@ const UploadForm = () => {
       t === "vnd.openxmlformats-officedocument.presentationml.presentation"
     ) {
       setError("");
-      startUpload(selectedFile);
+      startUpload(selectedFile, e.target.name);
     } else {
       setError("Supported file types are pdf, png, docx, doc, pptx and ppt.");
     }
@@ -34,31 +34,42 @@ const UploadForm = () => {
 
   return (
     <div className="text-center mt-12">
-      <form onSubmit={handleSubmit} className="mx-auto text-center">
+      <form className="mx-auto text-center">
         <input
           onChange={handleFileChange}
           type="file"
           className="file-input file-input-bordered w-full max-w-xs"
         />
         <br />
-        <div className="flex justify-center">
+        <div className="flex gap-3 justify-center">
           <button
             type="submit"
-            className={`btn w-24 mt-3 ${Boolean(progress) && "loading"}`}
+            onClick={handleSubmit}
+            name="public"
+            className={`btn w-fit mt-3 ${Boolean(progress) && "loading"}`}
             disabled={!selectedFile}
           >
-            Upload
+            Upload Public
           </button>
-          {added && (
-            <Zoom left>
-              <div>
-                <div className="mx-auto my-5 px-3  text-2xl text-center text-slate-200 ">
-                  ✅
-                </div>
-              </div>
-            </Zoom>
-          )}
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            name="private"
+            className={`btn w-fit mt-3 ${Boolean(progress) && "loading"}`}
+            disabled={!selectedFile}
+          >
+            Upload Private
+          </button>
         </div>
+        {added && (
+          <Zoom left>
+            <div>
+              <div className="w-fit text-lg mx-auto my-5 px-3 bg-green-500 rounded-full text-center text-slate-200 ">
+                Success ✅
+              </div>
+            </div>
+          </Zoom>
+        )}
         {error && (
           <div className="alert alert-error max-w-fit px-4 mx-auto py-2 mt-2">
             <FiAlertCircle />

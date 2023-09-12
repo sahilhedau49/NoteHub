@@ -6,7 +6,7 @@ import {
 } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc } from "firebase/firestore";
 import { UserAuth } from "../context/auth";
 
 const useStorage = () => {
@@ -15,7 +15,7 @@ const useStorage = () => {
   const { user } = UserAuth();
   const [added, setAdded] = useState(false);
 
-  const startUpload = (file) => {
+  const startUpload = (file, access) => {
     if (!file) {
       return;
     }
@@ -36,13 +36,25 @@ const useStorage = () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
         const metaData = await getMetadata(storageRef);
         setProgress(0);
+        const username = user.email.split("@")[0];
         try {
-          await addDoc(collection(db, "documents"), {
-            name: metaData.name,
-            docUrl: url,
-            createdAt: new Date(),
-            ownerEmail: user.email,
-          });
+          if (access === "public") {
+            await addDoc(collection(db, "publicData"), {
+              name: metaData.name,
+              docUrl: url,
+              createdAt: new Date(),
+              ownerEmail: user.email,
+            });
+          }
+          // } else {
+          //   const docRef = doc(db, "privateData", `${username}`, "data");
+          //   await addDoc(collection(db, `privateData/${username}`), {
+          //     name: metaData.name,
+          //     docUrl: url,
+          //     createdAt: new Date(),
+          //     ownerEmail: user.email,
+          //   });
+          // }
           setAdded(true);
         } catch (e) {
           console.error("Error adding document: ", e);
