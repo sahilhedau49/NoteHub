@@ -6,8 +6,9 @@ import {
 } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import { useState } from "react";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { UserAuth } from "../context/auth";
+import { v4 as uuidv4 } from "uuid";
 
 const useStorage = () => {
   const [progress, setProgress] = useState();
@@ -45,16 +46,18 @@ const useStorage = () => {
               createdAt: new Date(),
               ownerEmail: user.email,
             });
+          } else {
+            const userId = uuidv4();
+            await setDoc(
+              doc(db, "privateData", `${username}`, `${userId}`, "data"),
+              {
+                name: metaData.name,
+                docUrl: url,
+                createdAt: new Date(),
+                ownerEmail: user.email,
+              }
+            );
           }
-          // } else {
-          //   const docRef = doc(db, "privateData", `${username}`, "data");
-          //   await addDoc(collection(db, `privateData/${username}`), {
-          //     name: metaData.name,
-          //     docUrl: url,
-          //     createdAt: new Date(),
-          //     ownerEmail: user.email,
-          //   });
-          // }
           setAdded(true);
         } catch (e) {
           console.error("Error adding document: ", e);
