@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useFirestore from "../Hooks/useFirestore";
 import Card from "./Card";
 
 const Gallery = () => {
-  const { res, isLoading } = useFirestore();
+  const { res, isLoading, getData } = useFirestore();
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    getData(data);
+  }, [data]);
   console.log(res);
 
   return (
     <div className="max-w-fit min-h-screen mx-auto pb-6">
-      <div className="mt-6 text-center">
+      <div className="mt-12 text-center">
         {isLoading && <progress className="progress w-56"></progress>}
+      </div>
+      <div className="flex mt-4 gap-3 justify-center">
+        <button
+          onClick={(e) => {
+            setData(e.target.name);
+          }}
+          name="public"
+          className="btn w-fit"
+        >
+          Show Public
+        </button>
+        <button
+          onClick={(e) => {
+            setData(e.target.name);
+          }}
+          name="private"
+          className="btn w-fit"
+        >
+          Show Private
+        </button>
       </div>
       <div className="coin-main grid grid-cols-3 gap-x-12 lg:grid-cols-3 sm:grid-cols-1 gap-y-24 md:gap-y-8 p-20 lg:p-8">
         {res.map((doc) => {

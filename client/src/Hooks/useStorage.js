@@ -47,9 +47,9 @@ const useStorage = () => {
               ownerEmail: user.email,
             });
           } else {
-            const userId = uuidv4();
+            const docId = uuidv4();
             await setDoc(
-              doc(db, "privateData", `${username}`, `${userId}`, "data"),
+              doc(db, "privateData", `${username}`, "data", `${docId}`),
               {
                 name: metaData.name,
                 docUrl: url,
