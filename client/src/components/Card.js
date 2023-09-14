@@ -9,9 +9,10 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
   const type = name.split(".")[1];
   const [imgUrl, setImgUrl] = useState();
   const { handleDocDelete } = useFirestore();
+  const [modal, setModal] = useState(false);
 
   const handleDelete = () => {
-    handleDocDelete(dataKey, email, docType);
+    setModal(true);
   };
 
   useEffect(() => {
@@ -53,6 +54,25 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
           </button>
         </div>
       </div>
+      {modal && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300">
+          <p className="text-2xl font-semibold">Do you want to delete ?</p>
+          <div className="flex gap-4 justify-around mt-4">
+            <button onClick={() => setModal(false)} className="btn border-none">
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                handleDocDelete(dataKey, email, docType);
+                setModal(false);
+              }}
+              className="btn bg-red-600 text-white border-none hover:text-black"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
