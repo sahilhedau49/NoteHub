@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFirestore from "../Hooks/useFirestore";
 import Card from "./Card";
+import { documentId } from "firebase/firestore";
 
 const Gallery = () => {
   const { res, isLoading, getData } = useFirestore();
@@ -44,7 +45,8 @@ const Gallery = () => {
         {res.map((doc) => {
           return (
             <Card
-              key={doc.url}
+              dataKey={doc.dataKey}
+              key={doc.dataKey}
               desc={doc.desc}
               name={doc.name}
               url={doc.url}

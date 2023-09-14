@@ -3,10 +3,16 @@ import pdf from "../images/pdf.png";
 import png from "../images/jpg.jpeg";
 import doc from "../images/doc.jpeg";
 import ppt from "../images/ppt.jpeg";
+import useFirestore from "../Hooks/useFirestore";
 
-const Card = ({ url, name, createdAt, email }) => {
+const Card = ({ dataKey, url, name, createdAt, email }) => {
   const type = name.split(".")[1];
   const [imgUrl, setImgUrl] = useState();
+  const { handleDocDelete } = useFirestore();
+
+  const handleDelete = () => {
+    handleDocDelete(dataKey);
+  };
 
   useEffect(() => {
     if (type === "pdf") {
@@ -22,8 +28,8 @@ const Card = ({ url, name, createdAt, email }) => {
 
   return (
     <div>
-      <a href={url} target="_blank" rel="noreferrer">
-        <div className="card card-compact w-[100%] bg-base-100 shadow-xl sm:w-[100%]">
+      <div className="card card-compact w-[100%] bg-base-100 shadow-xl sm:w-[100%]">
+        <a href={url} target="_blank" rel="noreferrer">
           <p className="mt-4 px-4 mb-4 text-lg text-center font-bold">{name}</p>
           <figure>
             <img className="w-28 rounded-full" src={imgUrl} alt="Doc-Type" />
@@ -37,13 +43,16 @@ const Card = ({ url, name, createdAt, email }) => {
               {createdAt.toLocaleDateString()}
             </p>
           </div>
-          <div className="absolute bottom-1 right-1">
-            <button className="px-2 py-1 bg-slate-300 text-black rounded-br-xl w-fit justify-center">
-              Delete
-            </button>
-          </div>
+        </a>
+        <div className="absolute bottom-1 right-1">
+          <button
+            onClick={handleDelete}
+            className="px-2 py-1 bg-slate-300 text-black rounded-br-xl w-fit justify-center"
+          >
+            Delete
+          </button>
         </div>
-      </a>
+      </div>
     </div>
   );
 };

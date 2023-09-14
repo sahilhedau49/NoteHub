@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../Firebase";
 import { UserAuth } from "../context/auth";
 
@@ -7,6 +14,14 @@ const useFirestore = () => {
   const [res, setRes] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const { user } = UserAuth();
+
+  const handleDocDelete = async (dataKey) => {
+    try {
+      await deleteDoc(doc(db, "publicData", dataKey));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getData = async (data) => {
     try {
@@ -19,11 +34,12 @@ const useFirestore = () => {
         onSnapshot(q, (querySnapshot) => {
           const d = [];
           querySnapshot.forEach((doc) => {
+            const dataKey = doc.id;
             const url = doc.data().docUrl;
             const name = doc.data().name;
             const createdAt = doc.data().createdAt.toDate();
             const gmail = doc.data().ownerEmail;
-            d.push({ url, name, createdAt, gmail });
+            d.push({ dataKey, url, name, createdAt, gmail });
           });
           setRes(d);
           setIsloading(false);
@@ -36,11 +52,12 @@ const useFirestore = () => {
         onSnapshot(q, (querySnapshot) => {
           const d = [];
           querySnapshot.forEach((doc) => {
+            const dataKey = doc.id;
             const url = doc.data().docUrl;
             const name = doc.data().name;
             const createdAt = doc.data().createdAt.toDate();
             const gmail = doc.data().ownerEmail;
-            d.push({ url, name, createdAt, gmail });
+            d.push({ dataKey, url, name, createdAt, gmail });
           });
           setRes(d);
           setIsloading(false);
@@ -50,7 +67,7 @@ const useFirestore = () => {
       console.log(error.message);
     }
   };
-  return { res, isLoading, getData };
+  return { res, isLoading, getData, handleDocDelete };
 };
 
 export default useFirestore;
