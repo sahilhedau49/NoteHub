@@ -15,9 +15,20 @@ const useFirestore = () => {
   const [isLoading, setIsloading] = useState(true);
   const { user } = UserAuth();
 
-  const handleDocDelete = async (dataKey) => {
+  const handleDocDelete = async (dataKey, email, docType) => {
     try {
-      await deleteDoc(doc(db, "publicData", dataKey));
+      if (docType === "public") {
+        if (user.email === email) {
+          await deleteDoc(doc(db, "publicData", dataKey));
+        } else {
+          console.log(
+            "You are not owner of this document. So you can't delete it."
+          );
+        }
+      } else {
+        const username = user.email.split("@")[0];
+        await deleteDoc(doc(db, "privateData", username, "data", dataKey));
+      }
     } catch (error) {
       console.log(error);
     }

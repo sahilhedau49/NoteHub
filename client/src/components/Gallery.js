@@ -45,6 +45,7 @@ const Gallery = () => {
         {res.map((doc) => {
           return (
             <Card
+              docType={data}
               dataKey={doc.dataKey}
               key={doc.dataKey}
               desc={doc.desc}

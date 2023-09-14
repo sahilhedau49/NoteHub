@@ -5,13 +5,13 @@ import doc from "../images/doc.jpeg";
 import ppt from "../images/ppt.jpeg";
 import useFirestore from "../Hooks/useFirestore";
 
-const Card = ({ dataKey, url, name, createdAt, email }) => {
+const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
   const type = name.split(".")[1];
   const [imgUrl, setImgUrl] = useState();
   const { handleDocDelete } = useFirestore();
 
   const handleDelete = () => {
-    handleDocDelete(dataKey);
+    handleDocDelete(dataKey, email, docType);
   };
 
   useEffect(() => {
