@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Gallery = () => {
   const { res, isLoading, getData } = useFirestore();
-  const [data, setData] = useState("");
+  const [data, setData] = useState("public");
 
   useEffect(() => {
     getData(data);
@@ -22,7 +22,9 @@ const Gallery = () => {
             setData(e.target.name);
           }}
           name="public"
-          className="btn w-fit"
+          className={`btn w-fit ${
+            data === "public" && "bg-slate-800 text-slate-50 hover:text-black"
+          }`}
         >
           Show Public
         </button>
@@ -31,7 +33,9 @@ const Gallery = () => {
             setData(e.target.name);
           }}
           name="private"
-          className="btn w-fit"
+          className={`btn w-fit ${
+            data === "private" && "bg-slate-800 text-slate-50 hover:text-black"
+          }`}
         >
           Show Private
         </button>
