@@ -16,12 +16,13 @@ export const AuthContextProvider = ({ children }) => {
   const [errWhileSign, setErrWhileSign] = useState("");
   const [errWhileLog, setErrWhileLog] = useState("");
   const [modal, setModal] = useState(false);
+  const [veriMsg, setVeriMsg] = useState(false);
 
   const emailSignIn = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         sendEmailVerification(auth.currentUser).then(() => {
-          alert("Verificatrion Link Sent!!!");
+          setVeriMsg(true);
         });
       })
       .catch((error) => {
@@ -67,6 +68,7 @@ export const AuthContextProvider = ({ children }) => {
         isValidate,
         modal,
         setModalStatus,
+        veriMsg,
       }}
     >
       {children}

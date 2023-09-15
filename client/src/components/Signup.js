@@ -5,7 +5,7 @@ import ErrorSign from "./ErrorSign";
 
 const Signup = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  const { emailSignIn, errWhileSign, isValidate } = UserAuth();
+  const { veriMsg, emailSignIn, errWhileSign } = UserAuth();
 
   const getData = (e) => {
     const { name, value } = e.target;
@@ -80,10 +80,13 @@ const Signup = () => {
           </div>
         </div>
       </form>
-      {isValidate && (
-        <p>Your email is verified successfully. Please Log in now.</p>
+      {errWhileSign && !veriMsg && <ErrorSign />}
+      {veriMsg && (
+        <div className="absolute mt-4 bottom-0 rounded-none alert alert-success">
+          Verification link is sent to your mail. Please verify it and reload
+          this page.
+        </div>
       )}
-      {errWhileSign && <ErrorSign />}
     </>
   );
 };

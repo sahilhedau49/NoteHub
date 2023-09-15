@@ -51,7 +51,7 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
         <div className="absolute bottom-1 right-1">
           <button
             onClick={handleDelete}
-            className="px-2 py-1 bg-slate-300 text-black rounded-br-xl w-fit justify-center"
+            className="px-2 py-1 bg-slate-300 text-black rounded-br-xl w-fit justify-center hover:bg-slate-400 duration-200"
           >
             Delete
           </button>

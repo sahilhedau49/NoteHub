@@ -71,6 +71,7 @@ const useStorage = () => {
     progress,
     err,
     added,
+    setAdded,
   };
 };
 

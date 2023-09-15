@@ -5,7 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 const UploadForm = () => {
   const [selectedFile, setSelectedFile] = useState();
-  const { startUpload, progress, added } = useStorage();
+  const { startUpload, progress, added, setAdded } = useStorage();
   const [error, setError] = useState("");
 
   const handleFileChange = (e) => {
@@ -15,6 +15,10 @@ const UploadForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    let size = selectedFile.size / 1000;
+    if (size > 20000) {
+      setError("Size of file should be less than 20MB.");
+    }
     let t = selectedFile.type.split("/")[1];
     if (
       t === "pdf" ||
@@ -27,6 +31,7 @@ const UploadForm = () => {
     ) {
       setError("");
       startUpload(selectedFile, e.target.name);
+      setTimeout(() => setAdded(false), 10000);
     } else {
       setError("Supported file types are pdf, png, docx, doc, pptx and ppt.");
     }
