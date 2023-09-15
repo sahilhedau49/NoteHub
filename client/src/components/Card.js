@@ -4,15 +4,18 @@ import png from "../images/jpg.jpeg";
 import doc from "../images/doc.jpeg";
 import ppt from "../images/ppt.jpeg";
 import useFirestore from "../Hooks/useFirestore";
+import { UserAuth } from "../context/auth";
 
 const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
   const type = name.split(".")[1];
   const [imgUrl, setImgUrl] = useState();
-  const { handleDocDelete } = useFirestore();
+  const { handleDocDelete, noDelError, setNoDelError } = useFirestore();
   const [modal, setModal] = useState(false);
+  const { setModalStatus } = UserAuth();
 
   const handleDelete = () => {
     setModal(true);
+    setModalStatus(true);
   };
 
   useEffect(() => {
@@ -54,17 +57,42 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
           </button>
         </div>
       </div>
+      {noDelError && (
+        <div className="w-80 z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300">
+          <p className="text-2xl font-semibold text-center">
+            You are not owner of this document. So you{" "}
+            <span className="text-red-600 font-semibold">can't delete</span> it.
+          </p>
+          <div className="flex gap-4 justify-around mt-4">
+            <button
+              onClick={() => {
+                setNoDelError(false);
+              }}
+              className="btn border-none px-10"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       {modal && (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300">
+        <div className="z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300">
           <p className="text-2xl font-semibold">Do you want to delete ?</p>
           <div className="flex gap-4 justify-around mt-4">
-            <button onClick={() => setModal(false)} className="btn border-none">
+            <button
+              onClick={() => {
+                setModal(false);
+                setModalStatus(false);
+              }}
+              className="btn border-none"
+            >
               Cancel
             </button>
             <button
               onClick={() => {
                 handleDocDelete(dataKey, email, docType);
                 setModal(false);
+                setModalStatus(false);
               }}
               className="btn bg-red-600 text-white border-none hover:text-black"
             >

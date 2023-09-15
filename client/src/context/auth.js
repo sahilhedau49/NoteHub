@@ -15,6 +15,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isValidate, setIsValidate] = useState(false);
   const [errWhileSign, setErrWhileSign] = useState("");
   const [errWhileLog, setErrWhileLog] = useState("");
+  const [modal, setModal] = useState(false);
 
   const emailSignIn = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -50,6 +51,10 @@ export const AuthContextProvider = ({ children }) => {
     });
   }, []);
 
+  const setModalStatus = (status) => {
+    setModal(status);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -60,6 +65,8 @@ export const AuthContextProvider = ({ children }) => {
         errWhileSign,
         errWhileLog,
         isValidate,
+        modal,
+        setModalStatus,
       }}
     >
       {children}
