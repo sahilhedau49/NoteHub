@@ -21,7 +21,7 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
   useEffect(() => {
     if (type === "pdf") {
       setImgUrl(pdf);
-    } else if (type === "doc" || type === "docx") {
+    } else if (type === "ppt" || type === "pptx") {
       setImgUrl(doc);
     } else if (type === "png" || type === "jpeg") {
       setImgUrl(png);
@@ -90,7 +90,7 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
             </button>
             <button
               onClick={() => {
-                handleDocDelete(dataKey, email, docType);
+                handleDocDelete(dataKey, email, docType, name);
                 setModal(false);
                 setModalStatus(false);
               }}

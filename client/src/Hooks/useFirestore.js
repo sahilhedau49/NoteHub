@@ -9,24 +9,28 @@ import {
 } from "firebase/firestore";
 import { db } from "../Firebase";
 import { UserAuth } from "../context/auth";
+import useStorage from "./useStorage";
 
 const useFirestore = () => {
   const [res, setRes] = useState([]);
   const [noDelError, setNoDelError] = useState(false);
   const [isLoading, setIsloading] = useState(true);
   const { user } = UserAuth();
+  const { deleteFile } = useStorage();
 
-  const handleDocDelete = async (dataKey, email, docType) => {
+  const handleDocDelete = async (dataKey, email, docType, name) => {
     try {
       if (docType === "public") {
         if (user.email === email) {
           await deleteDoc(doc(db, "publicData", dataKey));
+          deleteFile(name);
         } else {
           setNoDelError(true);
         }
       } else {
         const username = user.email.split("@")[0];
         await deleteDoc(doc(db, "privateData", username, "data", dataKey));
+        deleteFile(name);
       }
     } catch (error) {
       console.log(error);

@@ -24,6 +24,7 @@ const UploadForm = () => {
       t === "pdf" ||
       t === "png" ||
       t === "jpeg" ||
+      t === "jpg" ||
       t === "vnd.openxmlformats-officedocument.wordprocessingml.document" ||
       t === "msword" ||
       t === "vnd.ms-powerpoint" ||

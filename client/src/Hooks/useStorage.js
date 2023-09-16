@@ -3,6 +3,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   getMetadata,
+  deleteObject,
 } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import { useState } from "react";
@@ -66,12 +67,23 @@ const useStorage = () => {
     );
   };
 
+  const deleteFile = (name) => {
+    console.log("Delete Here...");
+    const docRef = ref(storage, `documents/${name}`);
+    try {
+      deleteObject(docRef);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     startUpload,
     progress,
     err,
     added,
     setAdded,
+    deleteFile,
   };
 };
 
