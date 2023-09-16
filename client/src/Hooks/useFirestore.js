@@ -23,14 +23,14 @@ const useFirestore = () => {
       if (docType === "public") {
         if (user.email === email) {
           await deleteDoc(doc(db, "publicData", dataKey));
-          deleteFile(name);
+          // deleteFile(name);
         } else {
           setNoDelError(true);
         }
       } else {
         const username = user.email.split("@")[0];
         await deleteDoc(doc(db, "privateData", username, "data", dataKey));
-        deleteFile(name);
+        // deleteFile(name);
       }
     } catch (error) {
       console.log(error);

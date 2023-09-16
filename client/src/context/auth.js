@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../Firebase";
@@ -17,6 +18,7 @@ export const AuthContextProvider = ({ children }) => {
   const [errWhileLog, setErrWhileLog] = useState("");
   const [modal, setModal] = useState(false);
   const [veriMsg, setVeriMsg] = useState(false);
+  const [passreseterr, setPassreseterr] = useState("");
 
   const emailSignIn = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -56,6 +58,14 @@ export const AuthContextProvider = ({ children }) => {
     setModal(status);
   };
 
+  const sendPasswordReset = (email) => {
+    sendPasswordResetEmail(auth, email).catch((error) => {
+      console.log(error);
+      setPassreseterr(error);
+    });
+    console.log("Password reset link sent...");
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -69,6 +79,8 @@ export const AuthContextProvider = ({ children }) => {
         modal,
         setModalStatus,
         veriMsg,
+        sendPasswordReset,
+        passreseterr,
       }}
     >
       {children}

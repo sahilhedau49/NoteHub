@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./context/auth";
 import Login from "./components/Login";
 import ProtectedHome from "./components/ProtectedHome";
 import ProtectedSignup from "./components/ProtectedSignup";
+import PasswordReset from "./components/PasswordReset";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               </ProtectedSignup>
             }
           />
+          <Route path="/passwordreset" element={<PasswordReset />} />
         </Routes>
       </AuthContextProvider>
     </div>

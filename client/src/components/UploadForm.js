@@ -52,16 +52,17 @@ const UploadForm = () => {
             type="submit"
             onClick={handleSubmit}
             name="public"
-            className={`btn w-fit mt-3 ${Boolean(progress) && "loading"}`}
+            className={`btn w-fit mt-3`}
             disabled={!selectedFile}
           >
             Upload Public
           </button>
+          <span className={`mt-3 ${Boolean(progress) && "loading"}`}></span>
           <button
             type="submit"
             onClick={handleSubmit}
             name="private"
-            className={`btn w-fit mt-3 ${Boolean(progress) && "loading"}`}
+            className={`btn w-fit mt-3`}
             disabled={!selectedFile}
           >
             Upload Private

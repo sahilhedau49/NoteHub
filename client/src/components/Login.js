@@ -64,12 +64,21 @@ const Login = () => {
                     className="input input-bordered"
                   />
                 </div>
+
                 <div className="form-control mt-6">
                   <button onClick={handleSubmit} className="btn btn-primary">
                     Log In
                   </button>
+                  <div>
+                    <Link
+                      className="block underline mt-2 text-xs text-right"
+                      to="/passwordreset"
+                    >
+                      Forgot Password
+                    </Link>
+                  </div>
                   <Link
-                    className="underline mt-2 text-xs text-center"
+                    className="underline mt-4 text-xs text-center"
                     to="/signup"
                   >
                     Don't have an account? Sign up
