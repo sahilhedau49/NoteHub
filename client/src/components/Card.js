@@ -76,7 +76,7 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
         </div>
       )}
       {modal && (
-        <div className="z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300">
+        <div className="shadow-lg shadow-slate-600 z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl bg-slate-300 md:w-[80%] md:text-center">
           <p className="text-2xl font-semibold">Do you want to delete ?</p>
           <div className="flex gap-4 justify-around mt-4">
             <button

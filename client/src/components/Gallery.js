@@ -22,9 +22,7 @@ const Gallery = () => {
             setData(e.target.name);
           }}
           name="public"
-          className={`btn w-fit ${
-            data === "public" && "bg-slate-800 text-slate-50 hover:text-black"
-          }`}
+          className={`btn w-fit ${data === "public" && "bg-slate-400"}`}
         >
           Show Public
         </button>
@@ -33,9 +31,7 @@ const Gallery = () => {
             setData(e.target.name);
           }}
           name="private"
-          className={`btn w-fit ${
-            data === "private" && "bg-slate-800 text-slate-50 hover:text-black"
-          }`}
+          className={`btn w-fit ${data === "private" && "bg-slate-400"}`}
         >
           Show Private
         </button>

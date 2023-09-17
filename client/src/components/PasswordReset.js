@@ -13,7 +13,7 @@ const PasswordReset = () => {
   };
 
   const handleSubmit = () => {
-    if (email == "") {
+    if (email === "") {
       setErr("Please provide email");
     } else {
       try {
@@ -26,10 +26,10 @@ const PasswordReset = () => {
   };
 
   return (
-    <div>
-      <div className="hero min-h-screen bg-base-200 ">
-        <div className="hero-content flex-col w-[40%] lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
+    <div className="overflow-y-hidden">
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col w-[80%]">
+          <div className="text-center">
             <h1 className="text-5xl font-bold mb-4">Password Reset</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100">
@@ -67,18 +67,18 @@ const PasswordReset = () => {
         </div>
       </div>
       {msg && (
-        <div className="absolute mt-4 bottom-0 z-20 rounded-none alert alert-success">
+        <div className="fixed mt-4 bottom-0 z-20 rounded-none alert alert-success">
           Password reset link is sent to your mail. Please use it to reset your
           password. Once done, Login Again.
         </div>
       )}
       {err && (
-        <div className="absolute mt-4 bottom-0 rounded-none alert alert-error">
+        <div className="fixed mt-4 bottom-0 rounded-none alert alert-error">
           {err}
         </div>
       )}
       {passreseterr && (
-        <div className="absolute z-10 mt-4 bottom-0 rounded-none alert alert-error">
+        <div className="fixed z-10 mt-4 bottom-0 rounded-none alert alert-error">
           {passreseterr.message}
         </div>
       )}

@@ -25,7 +25,7 @@ const Signup = () => {
   };
 
   return (
-    <>
+    <div className="overflow-y-hidden">
       <div>
         <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] sm:text-6xl sm:top-10">
           NoteHub
@@ -82,12 +82,12 @@ const Signup = () => {
       </form>
       {errWhileSign && !veriMsg && <ErrorSign />}
       {veriMsg && (
-        <div className="absolute mt-4 bottom-0 rounded-none alert alert-success">
+        <div className="fixed mt-4 bottom-0 rounded-none alert alert-success">
           Verification link is sent to your mail. Please verify it and reload
           this page.
         </div>
       )}
-    </>
+    </div>
   );
 };
 

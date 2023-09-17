@@ -25,7 +25,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="overflow-y-hidden">
       <div>
         <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] sm:text-6xl sm:top-10">
           NoteHub
@@ -90,7 +90,7 @@ const Login = () => {
         </div>
       </form>
       {errWhileLog && <ErrorLog />}
-    </>
+    </div>
   );
 };
 
