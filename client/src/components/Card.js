@@ -40,7 +40,8 @@ const Card = ({ docType, dataKey, url, name, createdAt, email }) => {
           </figure>
           <div className="card-body">
             <p className="text-base">
-              <span className="font-semibold">Uploaded By:</span> {email}
+              <span className="font-semibold">Uploaded By:</span>
+              <br /> {email}
             </p>
             <p className="text-base">
               <span className="font-semibold">Created On:</span>{" "}

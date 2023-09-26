@@ -36,7 +36,7 @@ const Gallery = () => {
           Show Private
         </button>
       </div>
-      <div className="coin-main grid grid-cols-4 gap-x-12 lg:grid-cols-3 sm:grid-cols-1 gap-y-24 md:gap-y-8 p-20 lg:p-8">
+      <div className="w-screen grid grid-cols-4 gap-x-12 lg:grid-cols-3 sm:grid-cols-1 gap-y-24 md:gap-y-8 p-20 lg:p-8">
         {res.map((doc) => {
           return (
             <Card
