@@ -9,7 +9,6 @@ const Gallery = () => {
   useEffect(() => {
     getData(data);
   }, [data]);
-  console.log(res);
 
   return (
     <div className="max-w-fit min-h-screen mx-auto pb-6">

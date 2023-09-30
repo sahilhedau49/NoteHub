@@ -5,7 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 const UploadForm = () => {
   const [selectedFile, setSelectedFile] = useState();
-  const { startUpload, progress, added, setAdded } = useStorage();
+  const { startUpload, progress, added, setAdded, limitErr } = useStorage();
   const [error, setError] = useState("");
 
   const handleFileChange = (e) => {
@@ -81,6 +81,12 @@ const UploadForm = () => {
           <div className="alert alert-error max-w-fit px-4 mx-auto py-2 mt-2">
             <FiAlertCircle />
             <span>{error}</span>
+          </div>
+        )}
+        {limitErr && (
+          <div className="alert alert-error max-w-fit px-4 mx-auto py-2 mt-2">
+            <FiAlertCircle />
+            <span>{limitErr}</span>
           </div>
         )}
       </form>

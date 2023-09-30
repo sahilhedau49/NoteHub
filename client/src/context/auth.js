@@ -50,7 +50,6 @@ export const AuthContextProvider = ({ children }) => {
       if (currentUser) {
         setIsValidate(currentUser.emailVerified);
       }
-      console.log(currentUser);
     });
   }, []);
 

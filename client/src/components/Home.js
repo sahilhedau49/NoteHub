@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <div className="bg-zinc-200 mx-auto min-h-screen">
+    <div className="bg-zinc-200 mx-auto min-h-screen overflow-x-hidden">
       <Navbar />
       <UploadForm />
       <Gallery />

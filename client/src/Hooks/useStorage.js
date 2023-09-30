@@ -7,7 +7,13 @@ import {
 } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import { useState } from "react";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getCountFromServer,
+  setDoc,
+} from "firebase/firestore";
 import { UserAuth } from "../context/auth";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,6 +22,7 @@ const useStorage = () => {
   const [err, setErr] = useState("");
   const { user } = UserAuth();
   const [added, setAdded] = useState(false);
+  const [limitErr, setLimitErr] = useState("");
 
   const startUpload = (file, access) => {
     if (!file) {
@@ -48,6 +55,17 @@ const useStorage = () => {
               ownerEmail: user.email,
             });
           } else {
+            const coll = collection(db, "privateData", `${username}`, "data");
+            const snapshot = await getCountFromServer(coll);
+
+            if (snapshot.data().count === 5) {
+              console.log("Limit reached...");
+              setLimitErr(
+                "Limit Reached, you can only upload upto 5 documents for private."
+              );
+              return;
+            }
+
             const docId = uuidv4();
             await setDoc(
               doc(db, "privateData", `${username}`, "data", `${docId}`),
@@ -84,6 +102,7 @@ const useStorage = () => {
     added,
     setAdded,
     deleteFile,
+    limitErr,
   };
 };
 
