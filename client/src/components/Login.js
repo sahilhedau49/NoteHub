@@ -25,14 +25,14 @@ const Login = () => {
   };
 
   return (
-    <div className="overflow-y-hidden">
+    <div className="overflow-y-hidden min-h-screen bg-base-200">
       <div>
-        <p className="absolute top-6 left-1/2 -translate-x-1/2 italic font-extrabold text-[4rem] sm:text-6xl sm:top-10">
+        <p className="italic mt-6 text-center font-extrabold text-[4rem] sm:text-6xl">
           NoteHub
         </p>
       </div>
       <form>
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero">
           <div className="hero-content flex-col sm:w-screen sm:px-4">
             <div className="text-center">
               <h1 className="text-5xl font-bold">Log In</h1>
