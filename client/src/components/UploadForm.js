@@ -21,6 +21,7 @@ const UploadForm = () => {
     }
     let t = selectedFile.type.split("/")[1];
     if (
+      // t === "svg" ||
       t === "pdf" ||
       t === "png" ||
       t === "jpeg" ||
