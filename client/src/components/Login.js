@@ -36,7 +36,7 @@ const Login = () => {
           <div className="hero-content flex-col sm:w-screen sm:px-4">
             <div className="text-center">
               <h1 className="text-5xl font-bold">Log In</h1>
-              <p className="py-6">Share your notes with the world 📖💫🌈</p>
+              <p className="py-6">Share your notes with the world 📖💫</p>
             </div>
             <div className="card w-[30rem] shadow-2xl bg-base-100 sm:w-[90%]">
               <div className="card-body">
