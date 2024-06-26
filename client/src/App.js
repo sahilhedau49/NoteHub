@@ -4,9 +4,10 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import { AuthContextProvider } from "./context/auth";
 import Login from "./components/Login";
-import ProtectedHome from "./components/ProtectedHome";
+import Protected from "./components/Protected";
 import ProtectedSignup from "./components/ProtectedSignup";
 import PasswordReset from "./components/PasswordReset";
+import CreateRoom from "./components/CreateRoom";
 
 function App() {
   return (
@@ -16,9 +17,9 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedHome>
+              <Protected>
                 <Home />
-              </ProtectedHome>
+              </Protected>
             }
           />
           <Route
@@ -38,6 +39,14 @@ function App() {
             }
           />
           <Route path="/passwordreset" element={<PasswordReset />} />
+          <Route
+            path="/createRoom"
+            element={
+              <Protected>
+                <CreateRoom />
+              </Protected>
+            }
+          />
         </Routes>
       </AuthContextProvider>
     </div>
