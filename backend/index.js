@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { connectToDatabase } = require("./db");
 const router = require("./routes/index");
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -15,12 +15,6 @@ app.get("/", (req, res) => {
 
 app.use("/api", router);
 
-connectToDatabase()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log("Connected to backend at PORT:", PORT);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.listen(PORT, () => {
+  console.log("Connected to backend");
+});
