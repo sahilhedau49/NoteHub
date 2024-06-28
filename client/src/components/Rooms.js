@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/auth";
+import MyRooms from "./MyRooms";
+import axios from "axios";
 
 const Rooms = () => {
   const navigate = useNavigate();
   const [roomcode, setRoomcode] = useState("");
-  const [myRooms, setMyRooms] = useState([1, 1, 1, 1]);
   const { user } = UserAuth();
 
   const handleCodeChange = (e) => {
     setRoomcode(e.target.value);
   };
 
-  const findRoomAndJoin = () => {
-    // findRoomNJoin(roomcode, user.email.split("@")[0]);
+  const findRoomAndJoin = async () => {
+    const username = user.email.split("@")[0];
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/addNewMemberInRoom`,
+        {
+          member_name: username,
+          room_id: roomcode,
+        }
+      );
+      console.log(res);
+      // toast on res.data.message
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
     console.log("Finding room with code: ", roomcode);
   };
 
@@ -58,22 +73,7 @@ const Rooms = () => {
           </h1>
         </button>
       </div>
-      <div className="w-[80%] mx-auto mt-20">
-        <div className="text-4xl font-medium text-center mb-10">My Rooms</div>
-        <div className="grid grid-cols-3 gap-6">
-          {myRooms.map((room) => (
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">Card title!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MyRooms />
     </div>
   );
 };

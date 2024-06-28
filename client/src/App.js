@@ -8,11 +8,14 @@ import Protected from "./components/Protected";
 import ProtectedSignup from "./components/ProtectedSignup";
 import PasswordReset from "./components/PasswordReset";
 import CreateRoom from "./components/CreateRoom";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div>
+    <div className="bg-zinc-200">
       <AuthContextProvider>
+        <Navbar />
+
         <Routes>
           <Route
             path="/"

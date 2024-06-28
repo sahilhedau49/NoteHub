@@ -66,7 +66,7 @@ const getRoomsForMember = (req, res) => {
     }
 
     if (results.length === 0) {
-      res.status(404).json({ message: "No rooms found for this member" });
+      res.json({ message: "No rooms found for this member" });
       return;
     }
 

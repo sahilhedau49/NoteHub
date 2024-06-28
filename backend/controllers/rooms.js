@@ -34,9 +34,9 @@ const createRoom = async (req, res) => {
           return;
         }
 
-        console.log("Room and admin added successfully");
+        console.log(`Room created successfully. With room id ${room_id}.`);
         res.json({
-          message: "Room and admin added successfully",
+          message: `Room created successfully. With room id ${room_id}.`,
           room: {
             id: room_id,
             name: room_name,
@@ -83,9 +83,9 @@ const addNewMemberToRoom = (req, res) => {
       return res.json(err);
     }
 
-    console.log("New member added to room successfully");
+    console.log(`Joined room with room id ${room_id} successfully.`);
     res.json({
-      message: "New member added to room successfully",
+      message: `Joined room with room id ${room_id} successfully.`,
       result: result,
     });
   });

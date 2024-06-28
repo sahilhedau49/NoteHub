@@ -25,12 +25,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="overflow-y-hidden min-h-screen bg-base-200">
-      <div>
-        <p className="italic mt-6 text-center font-extrabold text-[4rem] sm:text-6xl">
-          NoteHub
-        </p>
-      </div>
+    <div className="overflow-y-hidden min-h-[90vh] mt-10 flex place-content-center">
       <form>
         <div className="hero">
           <div className="hero-content flex-col sm:w-screen sm:px-4">
