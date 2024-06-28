@@ -7,14 +7,16 @@ const {
   deleteDocumentById,
 } = require("../controllers/rooms");
 const {
-  getAllRooms,
+  getRoomDetails,
   getRoomsForMember,
   getDocumentsByRoomIdIfMember,
 } = require("../controllers/data");
 const router = express.Router();
 
-router.route("/getDocuments/:room_id").get(getDocumentsByRoomIdIfMember); // pass username with body
-router.route("/getAllRooms").get(getAllRooms);
+router
+  .route("/getDocuments/:room_id/:member_name")
+  .get(getDocumentsByRoomIdIfMember); // pass username with body
+router.route("/getRoomDetails/:room_id").get(getRoomDetails);
 router.route("/getRoomsForMember/:member_name").get(getRoomsForMember);
 
 router.route("/createRoom").post(createRoom);

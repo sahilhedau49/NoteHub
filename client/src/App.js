@@ -9,13 +9,13 @@ import ProtectedSignup from "./components/ProtectedSignup";
 import PasswordReset from "./components/PasswordReset";
 import CreateRoom from "./components/CreateRoom";
 import Navbar from "./components/Navbar";
+import RoomGallery from "./components/RoomGallery";
 
 function App() {
   return (
     <div className="bg-zinc-200">
       <AuthContextProvider>
         <Navbar />
-
         <Routes>
           <Route
             path="/"
@@ -47,6 +47,14 @@ function App() {
             element={
               <Protected>
                 <CreateRoom />
+              </Protected>
+            }
+          />
+          <Route
+            path="/room/:room_id"
+            element={
+              <Protected>
+                <RoomGallery />
               </Protected>
             }
           />

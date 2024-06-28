@@ -1,8 +1,7 @@
 const db = require("../db");
 
 const getDocumentsByRoomIdIfMember = (req, res) => {
-  const { room_id } = req.params;
-  const { member_name } = req.body;
+  const { room_id, member_name } = req.params;
 
   const q = `
       SELECT documents.* 
@@ -17,9 +16,7 @@ const getDocumentsByRoomIdIfMember = (req, res) => {
     }
 
     if (results.length === 0) {
-      res
-        .status(404)
-        .json({ message: "No documents found or member is not in the room" });
+      res.json({ message: "No documents found or member is not in the room" });
       return;
     }
 
@@ -31,22 +28,23 @@ const getDocumentsByRoomIdIfMember = (req, res) => {
   });
 };
 
-const getAllRooms = (req, res) => {
-  const q = "SELECT * FROM rooms";
+const getRoomDetails = (req, res) => {
+  const { room_id } = req.params;
+  const q = "SELECT * FROM rooms WHERE room_id = ?";
 
-  db.query(q, (err, results) => {
+  db.query(q, [room_id], (err, results) => {
     if (err) {
       res.json(err);
       return;
     }
 
     if (results.length === 0) {
-      res.status(404).json({ message: "No rooms found" });
+      res.json({ message: "Room not found" });
       return;
     }
 
-    console.log("Rooms retrieved successfully");
-    res.json({ message: "Rooms retrieved successfully", rooms: results });
+    console.log("Room's data retrieved successfully");
+    res.json({ message: "Room's data retrieved successfully", data: results });
   });
 };
 
@@ -80,6 +78,6 @@ const getRoomsForMember = (req, res) => {
 
 module.exports = {
   getDocumentsByRoomIdIfMember,
-  getAllRooms,
+  getRoomDetails,
   getRoomsForMember,
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { UserAuth } from "../context/auth";
+import { Link } from "react-router-dom";
 
 const MyRooms = () => {
   const [myRooms, setMyRooms] = useState([]);
@@ -9,12 +10,16 @@ const MyRooms = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user.email) {
-        const username = user.email.split("@")[0];
-        const res = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/getRoomsForMember/${username}`
-        );
-        console.log(res);
-        setMyRooms(res.data.rooms);
+        try {
+          const username = user.email.split("@")[0];
+          const res = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/getRoomsForMember/${username}`
+          );
+          console.log(res);
+          setMyRooms(res.data.rooms);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
 
@@ -32,10 +37,14 @@ const MyRooms = () => {
               <div className="card-body">
                 <h2 className="card-title">{room.room_name}</h2>
                 <p>{room.room_description.substr(0, 120)} ...</p>
+                <p>{room.room_id}</p>
                 <div className="card-actions justify-end">
-                  <button className="px-4 py-2 bg-zinc-600 text-zinc-100 rounded-md">
+                  <Link
+                    to={`/room/${room.room_id}`}
+                    className="px-4 py-2 bg-zinc-600 text-zinc-100 rounded-md"
+                  >
                     Enter
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -12,21 +12,25 @@ const CreateRoom = () => {
     return uuidv4().replace(/-/g, "").substring(0, 6);
   };
 
-  const handleCreateRoom = async (e) => {
+  const handleCreateRoom = async () => {
     const roomID = generateRoomId();
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/api/createRoom`,
-      {
-        room_name: roomName,
-        room_description: description,
-        admin_email: user.email,
-        room_id: roomID,
-      }
-    );
-    console.log(res);
-    // toast on res.data.message
-    setRoomName("");
-    setDescription("");
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/createRoom`,
+        {
+          room_name: roomName,
+          room_description: description,
+          admin_email: user.email,
+          room_id: roomID,
+        }
+      );
+      console.log(res);
+      // toast on res.data.message
+      setRoomName("");
+      setDescription("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
