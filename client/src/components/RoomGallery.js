@@ -7,6 +7,7 @@ import UploadForm from "./UploadForm";
 const RoomGallery = () => {
   const [documents, setDocuments] = useState([]);
   const [roomDetails, setRoomDetails] = useState({});
+  const [isAdmin, setIsAdmin] = useState(false);
   const { user } = UserAuth();
   const { room_id } = useParams();
 
@@ -20,6 +21,7 @@ const RoomGallery = () => {
           );
           console.log(res);
           setDocuments(res.data.documents);
+          setIsAdmin(res.data.isAdmin);
         } catch (error) {
           console.log(error);
         }
@@ -43,20 +45,31 @@ const RoomGallery = () => {
   }, [user]);
 
   return (
-    <div>
-      <div>
-        <h1>{roomDetails.room_name}</h1>
-        <h2>{roomDetails.room_description}</h2>
-      </div>
-      <UploadForm />
-      <div>
+    <>
+      {roomDetails ? (
         <div>
-          {documents.map((doc) => (
-            <div key={doc.doc_id}></div> // redesign card component
-          ))}
+          <div>
+            <h1>{roomDetails.room_name}</h1>
+            <h2>{roomDetails.room_description}</h2>
+          </div>
+          {isAdmin && <UploadForm />}
+          <div>
+            <div>
+              {documents.length !== 0 &&
+                documents.map((doc) => (
+                  <div key={doc.doc_id}>
+                    <a href={`${doc.url}`} target="_blank">
+                      LINK
+                    </a>
+                  </div> // redesign card component
+                ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div>not found</div>
+      )}
+    </>
   );
 };
 

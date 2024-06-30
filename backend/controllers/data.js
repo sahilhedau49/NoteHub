@@ -15,15 +15,36 @@ const getDocumentsByRoomIdIfMember = (req, res) => {
       return;
     }
 
-    if (results.length === 0) {
-      res.json({ message: "No documents found or member is not in the room" });
-      return;
-    }
+    const q1 = "SELECT * FROM admins WHERE admin_name = ? AND room_id = ?";
 
-    console.log("Documents retrieved successfully");
-    res.json({
-      message: "Documents retrieved successfully",
-      documents: results,
+    db.query(q1, [member_name, room_id], (err, results2) => {
+      if (err) {
+        console.error("Error checking admin status:", err);
+        res.json(err);
+        return;
+      }
+
+      let isAdmin = true;
+
+      if (results2.length === 0) {
+        isAdmin = false;
+      }
+
+      if (results.length === 0) {
+        res.json({
+          message: "No documents found in the room",
+          isAdmin: isAdmin,
+          documents: results,
+        });
+        return;
+      }
+
+      console.log("Documents retrieved successfully");
+      res.json({
+        message: "Documents retrieved successfully",
+        isAdmin: isAdmin,
+        documents: results,
+      });
     });
   });
 };
@@ -39,7 +60,7 @@ const getRoomDetails = (req, res) => {
     }
 
     if (results.length === 0) {
-      res.json({ message: "Room not found" });
+      res.json({ message: "Room not found", data: results });
       return;
     }
 

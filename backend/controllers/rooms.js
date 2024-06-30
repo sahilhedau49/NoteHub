@@ -14,9 +14,10 @@ const createRoom = async (req, res) => {
       return;
     }
 
+    const admin_name = admin_email.split("@")[0];
     const adminQuery =
-      "INSERT INTO admins (`admin_email`, `room_id`) VALUES (?, ?)";
-    const adminValues = [admin_email, room_id];
+      "INSERT INTO admins (`admin_email`, `room_id`, `admin_name`) VALUES (?, ?, ?)";
+    const adminValues = [admin_email, room_id, admin_name];
 
     db.query(adminQuery, adminValues, (err, adminResult) => {
       if (err) {
@@ -54,10 +55,11 @@ const createRoom = async (req, res) => {
 };
 
 const addNewAdminToRoom = (req, res) => {
-  const { admin_email, room_id } = req.body;
+  const { admin_email, room_id, admin_name } = req.body;
 
-  const q = "INSERT INTO admins (`admin_email`, `room_id`) VALUES (?, ?)";
-  const values = [admin_email, room_id];
+  const q =
+    "INSERT INTO admins (`admin_email`, `room_id`, `admin_name`) VALUES (?, ?, ?)";
+  const values = [admin_email, room_id, admin_name];
 
   db.query(q, values, (err, result) => {
     if (err) {
