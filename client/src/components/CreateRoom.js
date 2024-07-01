@@ -35,35 +35,31 @@ const CreateRoom = () => {
 
   return (
     <div className="min-h-[90vh] flex place-items-center">
-      <div className="w-[36%] mx-auto p-10 bg-zinc-100 shadow-md rounded-md">
-        <h2 className="text-2xl font-semibold mb-5 text-center">Create Room</h2>
+      <div className="w-[36%] mx-auto p-10 bg-zinc-700 text-gray-100 rounded-md">
+        <h2 className="text-3xl font-semibold mb-5 text-center">Create Room</h2>
         <div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Room Name:
-            </label>
+          <div className="mb-4 flex flex-col gap-1">
+            <label className="text-xl">Room Name:</label>
             <input
               type="text"
               value={roomName}
               onChange={(e) => setRoomName(e.target.value)}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="text-gray-900 bg-zinc-200 px-3 py-1 text-lg rounded-md outline-none"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Description:
-            </label>
+          <div className="mb-4 flex flex-col gap-1">
+            <label className="">Description:</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="text-gray-900 bg-zinc-200 px-3 py-1 text-lg rounded-md outline-none"
             ></textarea>
           </div>
           <button
             onClick={handleCreateRoom}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            className="block mx-auto mt-10 px-8 py-2 rounded-md bg-zinc-900"
           >
             Create
           </button>

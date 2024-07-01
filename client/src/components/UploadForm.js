@@ -41,25 +41,28 @@ const UploadForm = ({ room_id, uploaded_by }) => {
         room_id: room_id,
         uploaded_by: uploaded_by,
       });
-      setTimeout(() => setAdded(false), 10000);
+      setTimeout(() => setAdded(false), 5000);
     } else {
       setError("Supported file types are pdf, png, docx, doc, pptx and ppt.");
     }
   };
 
   return (
-    <div className="text-center mt-12">
-      <form onSubmit={handleSubmit} className="mx-auto text-center">
+    <div className="mt-12 bg-slate-200 p-10 rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="form-control w-full max-w-md mx-auto"
+      >
         <div>
           <input
             onChange={handleFileChange}
             type="file"
             required
-            className="file-input file-input-bordered w-full max-w-xs"
+            className="file-input block mx-auto file-input-bordered w-full max-w-xs"
           />
         </div>
-        <div>
-          <label>Document Name</label>
+        <div className="mt-4">
+          <label className="text-lg font-medium">Document Name</label>
           <input
             type="text"
             required
@@ -67,10 +70,11 @@ const UploadForm = ({ room_id, uploaded_by }) => {
               setDoc_name(e.target.value);
             }}
             placeholder="Document Name"
+            className="input input-bordered w-full max-w-lg"
           />
         </div>
-        <div>
-          <label>Description</label>
+        <div className="mt-4">
+          <label className="text-lg font-medium">Description</label>
           <input
             type="text"
             required
@@ -78,11 +82,15 @@ const UploadForm = ({ room_id, uploaded_by }) => {
               setDescription(e.target.value);
             }}
             placeholder="Describe about document content/purpose"
+            className="input input-bordered w-full max-w-lg"
           />
         </div>
-        <div>
-          <button className="btn w-fit mt-3" type="submit">
-            Submit
+        <div className="text-center mt-6">
+          <button
+            className="px-12 py-2 bg-base-100 rounded-md text-xl font-medium"
+            type="submit"
+          >
+            Add
           </button>
         </div>
         {/* <div className="flex gap-3 justify-center">
@@ -106,18 +114,20 @@ const UploadForm = ({ room_id, uploaded_by }) => {
             Upload Private
           </button>
         </div> */}
-        <span className={`mt-3 ${Boolean(progress) && "loading"}`}></span>
+        <span
+          className={`mx-auto ${Boolean(progress) && " mt-6 loading"}`}
+        ></span>
         {added && (
           <Zoom left>
             <div>
-              <div className="w-fit text-lg mx-auto my-5 px-3 bg-green-500 rounded-full text-center text-slate-200 ">
+              <div className="w-fit text-lg mt-6 mx-auto px-3 bg-green-500 rounded-full text-center text-slate-200 ">
                 Success ✅
               </div>
             </div>
           </Zoom>
         )}
         {error && (
-          <div className="alert alert-error max-w-fit px-4 mx-auto py-2 mt-2">
+          <div className="alert alert-error mt-6 max-w-fit px-4 mx-auto py-2">
             <FiAlertCircle />
             <span>{error}</span>
           </div>

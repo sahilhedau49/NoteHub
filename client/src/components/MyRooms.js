@@ -36,7 +36,10 @@ const MyRooms = () => {
             <div key={room.room_id} className="card bg-zinc-100 shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">{room.room_name}</h2>
-                <p>{room.room_description.substr(0, 120)} ...</p>
+                <p>
+                  {room.room_description.substr(0, 70)}
+                  {room.room_description.length > 70 && "..."}
+                </p>
                 <p>{room.room_id}</p>
                 <div className="card-actions justify-end">
                   <Link
