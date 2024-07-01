@@ -82,7 +82,7 @@ const addNewMemberToRoom = (req, res) => {
 
   db.query(q, values, (err, result) => {
     if (err) {
-      return res.json(err);
+      return res.json({ message: `Room not found with ID ${room_id} !!!` });
     }
 
     console.log(`Joined room with room id ${room_id} successfully.`);

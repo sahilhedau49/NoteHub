@@ -52,7 +52,12 @@ const RoomGallery = () => {
             <h1>{roomDetails.room_name}</h1>
             <h2>{roomDetails.room_description}</h2>
           </div>
-          {isAdmin && <UploadForm />}
+          {isAdmin && (
+            <UploadForm
+              room_id={room_id}
+              uploaded_by={user?.email?.split("@")[0]}
+            />
+          )}
           <div>
             <div>
               {documents.length !== 0 &&

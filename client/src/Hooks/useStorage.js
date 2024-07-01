@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { UserAuth } from "../context/auth";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const useStorage = () => {
   const [progress, setProgress] = useState();
@@ -23,6 +24,50 @@ const useStorage = () => {
   const { user } = UserAuth();
   const [added, setAdded] = useState(false);
   const [limitErr, setLimitErr] = useState("");
+
+  const uploadDocument = (data) => {
+    if (!data.file || !data.doc_name || !data.description) {
+      return;
+    }
+    const storageRef = ref(storage, "documents-v2/" + data.file.name);
+    const uploadTask = uploadBytesResumable(storageRef, data.file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+        setErr(error);
+      },
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        // const metaData = await getMetadata(storageRef);
+        setProgress(0);
+
+        try {
+          // console.log(data);
+          // console.log(url, metaData);
+          const res = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/addDocumentInRoom`,
+            {
+              room_id: data.room_id,
+              doc_name: data.doc_name,
+              description: data.description,
+              uploaded_by: data.uploaded_by,
+              url: url,
+            }
+          );
+          console.log(res);
+          setAdded(true);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
+  };
 
   const startUpload = (file, access) => {
     if (!file) {
@@ -103,6 +148,7 @@ const useStorage = () => {
     setAdded,
     deleteFile,
     limitErr,
+    uploadDocument,
   };
 };
 
