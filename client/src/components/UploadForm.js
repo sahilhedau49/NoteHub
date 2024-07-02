@@ -41,19 +41,25 @@ const UploadForm = ({ room_id, uploaded_by }) => {
         room_id: room_id,
         uploaded_by: uploaded_by,
       });
-      setTimeout(() => setAdded(false), 5000);
+      setTimeout(() => {
+        setAdded(false);
+        window.location.reload();
+      }, 5000);
     } else {
       setError("Supported file types are pdf, png, docx, doc, pptx and ppt.");
     }
   };
 
   return (
-    <div className="mt-12 bg-slate-200 p-10 rounded-md">
+    <div className="bg-slate-200 p-10 rounded-md">
       <form
         onSubmit={handleSubmit}
         className="form-control w-full max-w-md mx-auto"
       >
         <div>
+          <h1 className="text-3xl font-semibold mb-10 text-center">
+            Upload Document
+          </h1>
           <input
             onChange={handleFileChange}
             type="file"

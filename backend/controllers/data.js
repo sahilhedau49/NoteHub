@@ -7,7 +7,7 @@ const getDocumentsByRoomIdIfMember = (req, res) => {
       SELECT documents.* 
       FROM documents
       JOIN roommembers ON documents.room_id = roommembers.room_id
-      WHERE documents.room_id = ? AND roommembers.member_name = ?`;
+      WHERE documents.room_id = ? AND roommembers.member_name = ? ORDER BY timestamp DESC`;
 
   db.query(q, [room_id, member_name], (err, results) => {
     if (err) {

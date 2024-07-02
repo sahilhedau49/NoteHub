@@ -66,9 +66,9 @@ const addNewAdminToRoom = (req, res) => {
       return res.json(err);
     }
 
-    console.log("Admin added to room successfully");
+    console.log("Editor added to room successfully");
     res.json({
-      message: "Admin added to room successfully",
+      message: "Editor added to room successfully",
       result: result,
     });
   });
@@ -130,10 +130,33 @@ const deleteDocumentById = (req, res) => {
   });
 };
 
+const removeMemberFromRoom = (req, res) => {
+  const { member_name, room_id } = req.params;
+  console.log(member_name, room_id);
+
+  const query = "DELETE FROM roommembers WHERE member_name = ? AND room_id = ?";
+
+  db.query(query, [member_name, room_id], (err, results) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+
+    console.log("Member removed successfully");
+    res.json({
+      message: "Left the room successfully",
+      member_name: member_name,
+      room_id: room_id,
+      data: results,
+    });
+  });
+};
+
 module.exports = {
   createRoom,
   addNewAdminToRoom,
   addNewMemberToRoom,
   addDocumentInRoom,
   deleteDocumentById,
+  removeMemberFromRoom,
 };

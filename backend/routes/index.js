@@ -5,6 +5,7 @@ const {
   addNewAdminToRoom,
   addDocumentInRoom,
   deleteDocumentById,
+  removeMemberFromRoom,
 } = require("../controllers/rooms");
 const {
   getRoomDetails,
@@ -25,5 +26,6 @@ router.route("/addNewMemberInRoom").post(addNewMemberToRoom);
 router.route("/addDocumentInRoom").post(addDocumentInRoom);
 
 router.route("/deleteDocByID/:id").delete(deleteDocumentById);
+router.route("/leaveRoom/:room_id/:member_name").delete(removeMemberFromRoom);
 
 module.exports = router;

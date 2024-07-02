@@ -19,6 +19,7 @@ export const AuthContextProvider = ({ children }) => {
   const [modal, setModal] = useState(false);
   const [veriMsg, setVeriMsg] = useState(false);
   const [passreseterr, setPassreseterr] = useState("");
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
   const emailSignIn = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -36,10 +37,14 @@ export const AuthContextProvider = ({ children }) => {
   const emailLogIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(
-        setErrWhileLog({
-          message:
-            "You have not verified your email. Please check mail in your inbox to verify your account.",
-        })
+        setTimeout(
+          () =>
+            setErrWhileLog({
+              message:
+                "You have not verified your email. Please check mail in your inbox to verify your account.",
+            }),
+          3000
+        )
       )
       .catch((error) => {
         console.log(error);
@@ -57,6 +62,7 @@ export const AuthContextProvider = ({ children }) => {
       if (currentUser) {
         setIsValidate(currentUser.emailVerified);
       }
+      setCheckingStatus(false);
     });
   }, []);
 
@@ -87,6 +93,7 @@ export const AuthContextProvider = ({ children }) => {
         veriMsg,
         sendPasswordReset,
         passreseterr,
+        checkingStatus,
       }}
     >
       {children}
